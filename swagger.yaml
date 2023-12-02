@@ -1,0 +1,73 @@
+openapi: "3.0.3"
+info:
+  title: "Node JS API Project"
+  version: "1.0.0"
+paths:
+  /:
+    get:
+      summary: "Retrieve a Hello Message"
+      description: "This endpoint returns a simple 'Hello' message to check if the GET method is working."
+      responses:
+        200:
+          description: "Successful response with a 'Hello' message"
+  /users:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Username of user
+                  required: true
+                email:
+                  type: string
+                  description: e-mail of user
+                  required: true
+                password:
+                  type: string
+                  description: password of user
+                  required: true
+                password2:
+                  type: string
+                  description: confirm password of user
+                  required: true
+                role:
+                  type: string
+                  description: role of user
+                  required: true
+      responses:
+        200:
+          description: "Successful response with a 'you are now registered. Please log in' message"
+          # examples:
+          #   application/json:
+          #     - {
+          #         name: "johndoe",
+          #         email: "johndoe@example.com",
+          #         password: "password123",
+          #         password2: "password123",
+          #         role: "user",
+          #       }
+  /login:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: e-mail of user
+                  required: true
+                password:
+                  type: string
+                  description: password of user
+                  required: true
+      responses:
+        200:
+          description: "Successful response with a 'you are conncected' message"

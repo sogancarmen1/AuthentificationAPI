@@ -23,17 +23,26 @@ const loginUser = async (req, res) => {
   if (results && testEqualityOfPassword == false)
     return res.status(401).send({ message: "Email or password isn't correct" });
 
+  let role = results.rows[0].roles[0];
+
   const token = jwt.sign(
-    { user_id: results.id, email },
+    { user_id: results.id, email, role },
     process.env.TOKEN_KEY,
     {
       expiresIn: "2h",
     }
   );
 
-  results.token = token;
+  // results.token = token;
 
-  return res.status(200).send({ message: "You are connected", data: results });
+  return res
+    .cookie("access-token", token, {
+      httpOnly: true,
+    })
+    .status(200)
+    .json({ username: results.rows[0].name });
+
+  // return res.status(200).send({ message: "You are connected", data: results });
 };
 
 module.exports = { loginUser };
